@@ -439,6 +439,22 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '1756985928901338');
 fbq('track', 'PageView');
 </script>
+<!-- Rastreamento de origem (UTM -> checkout Kiwify) -->
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  try{
+    var incoming=new URLSearchParams(window.location.search);
+    var keep=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','src','fbclid'];
+    var pass=new URLSearchParams();
+    keep.forEach(function(k){ var v=incoming.get(k); if(v) pass.set(k,v); });
+    if(!pass.toString()) return;
+    document.querySelectorAll('a').forEach(function(a){
+      if((a.getAttribute('href')||'').indexOf('pay.kiwify.com.br')<0) return;
+      try{ var u=new URL(a.href); pass.forEach(function(v,k){ u.searchParams.set(k,v); }); a.href=u.toString(); }catch(e){}
+    });
+  }catch(e){}
+});
+</script>
 <!-- Video VSL (YouTube Short) - injecao segura -->
 <script>
 document.addEventListener('DOMContentLoaded',function(){
